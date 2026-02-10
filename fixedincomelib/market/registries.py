@@ -113,3 +113,7 @@ class DataIdentifierRegistry(Registry):
 
 
 
+    
+class DataConventionRegistry(Registry):
+    def __new__(cls) -> Self:
+        return super().__new__(cls, 'data_conventions', 'DataConvention')
