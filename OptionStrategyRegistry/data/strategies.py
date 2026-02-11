@@ -168,3 +168,23 @@ class OptionStrategy:
 class OptionStrategyRegistry(Registry):
 
 ### TODO
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(OptionStrategyRegistry, cls).__new__(
+                cls,
+                registry_type="OPTION_STRATEGY",
+                file_name="strategies.yaml"
+            )
+        return cls._instance
+    
+
+    def register(self, name: str, content: dict):
+        self._registry[name] = OptionStrategy.createFromDict(name, content)
+    
+    def list_registry_keys(self):
+        return list(self._registry.keys())
+    
+    def get(self, name: str):
+        return self._registry.get(name)
